@@ -1,0 +1,25 @@
+<div style="padding-top:70px;">
+    <div class="col-md-12" style="padding-bottom:15px;">
+        <div class="col-md-2">
+            <button type="button" class="btn" (click)="downloadJson()"> Download json</button>
+            <button type="button" class="btn" (click)="downloadCanvas()">Download UML</button>
+        </div>
+        <label class="btn-bs-file btn btn-primary">
+            Upload file
+            <input type="file" id="fileToLoad" (change)="readUploadFileJsonData($event)">
+        </label>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="panel-group" id="parent-accordion" style="margin-bottom:0px;">
+                    <app-entity-accordion *ngFor="let entity of Entities; let i=index" [index]="i" [entity]="entity" [entityNames]="entityNames" (changeOnEntityData)="changeInEntity()"
+                                          (addEntityCallback)="addEntity()" (cloneEntityCallback)="cloneEntity($event)" (deleteEntityCallback)="deleteEntity($event)" (onClickCollapseHeader)="onClickCollapseHeader($event)"></app-entity-accordion>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <canvas id="target-canvas"></canvas>
+    </div>
+</div>

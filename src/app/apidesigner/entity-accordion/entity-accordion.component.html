@@ -1,0 +1,44 @@
+
+<div class="panel panel-default" style="margin-bottom:5px;">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <!-- <a data-parent="#parent-accordion"  [href]="entity.Href" (click)="collaspePanel(entity)">
+                {{entity.Name}}
+            </a> -->
+            <a data-parent="#parent-accordion" style="cursor: pointer" (click)="collaspePanel(entity)">
+                {{entity.Name}}
+            </a>
+            <span class="pull-right">
+                <i class="fa fa-plus-circle custom-font" style="padding-right: 15px; color: #333333a8; cursor:pointer" (click) ="addEntity()"></i>
+                <i class="fa fa-clone custom-font" style="padding-right: 15px; color: #333333a8; cursor:pointer" (click)="cloneEntity(entity)"></i>
+                <i class="fa fa-trash-alt custom-font" style="padding-right: 15px; color: #333333a8; cursor:pointer" (click)="deleteEntity()"></i>
+            </span>
+        </h4>
+    </div>
+    <div [id]="entity.Id" class="panel-collapse collapse" [class.in]="!entity.isPanelCollapsed">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-md-2" style="text-align:left; padding-right:0px;">Entity name:</label>
+                        <div class="col-md-3" style="padding-left:0px; right:25px;">
+                            <input class="form-control" [(ngModel)]="entity.Name" (ngModelChange)="changeInEntity()" name="Name">
+                        </div>
+                        <div class="col-md-5">
+                            <select2 [data]="entityService.EntityData" [value]="entity.HrSystemMapping.Level" (valueChanged)="onSelect2Change($event)" [width]="150" ></select2>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-12">
+                <app-entity-field [Fields]="entity.Fields" (subscribe)="changeInEntity()" [EntityLevelId] = "entity.HrSystemMapping.Level"></app-entity-field>
+            </div>
+            <div class="col-md-12">
+                <app-entity-navigation [navigations]="entity.IncomingNavigations" (subscribe)="changeInEntity()" [header]="'Incoming Navigations'" [entityNames]="entityNames"></app-entity-navigation>
+            </div>
+            <div class="col-md-12">
+                <app-entity-navigation [navigations]="entity.OutgoingNavigations" [entityNames]="entityNames" (subscribe)="changeInEntity()" [header]="'Outgoing Navigations'"></app-entity-navigation>
+            </div>
+        </div>
+    </div>
+</div>

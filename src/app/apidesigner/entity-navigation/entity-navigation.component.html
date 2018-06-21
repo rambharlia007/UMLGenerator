@@ -1,0 +1,58 @@
+<div class="panel-group" id="accordion" style="margin-bottom:10px;">
+    <div id="nav-accordion-parent">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#nav-accordion-parent" [href]="'#'+id">
+                        {{header}}
+                    </a>
+                </h4>
+            </div>
+            <div [id]="id" class="panel-collapse collapse">
+                <div class="panel-body" style="padding-bottom:0px;">
+                    <div>
+                        <table class="table table-hover table-bordered" style="margin-bottom:0px;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">Start Entity</th>
+                                    <th style="text-align:center">End Entity</th>
+                                    <th style="text-align:center">Start Role</th>
+                                    <th style="text-align:center">End Multiplicity</th>
+                                    <th style="text-align:center">Direction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let field of navigations">
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="field.StartEntity"  (ngModelChange)="changeInEntity()">
+                        <option *ngFor="let option of entityNames" [value]="option">
+                            {{ option}}
+                        </option>
+                    </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="field.EndEntity"  (ngModelChange)="changeInEntity()">
+                        <option *ngFor="let option of entityNames" [value]="option" [disabled] ="option===field.StartEntity">
+                            {{ option}}
+                        </option>
+                    </select>
+                                    </td>
+                                    <td><input class="form-control" [(ngModel)]="field.StartRole"></td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="field.EndMultiplicity"  (ngModelChange)="changeInEntity()">
+                        <option *ngFor="let data of endMultiplicityMapping" [value]="data.name">
+                            {{ data.name }}
+                        </option>
+                    </select>
+                                    </td>
+                                    <td><input class="form-control" [(ngModel)]="field.Direction"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-link" (click)="addNavigation()">Add Navigation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
